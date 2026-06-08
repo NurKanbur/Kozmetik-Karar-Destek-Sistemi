@@ -34,7 +34,7 @@ Toplanan ham veriler analiz ve modelleme süreçlerine uygun hale getirilmek iç
 Ham verilerden işletme kararlarına doğrudan etki edecek yeni anlamlı değişkenler türetilmiştir:
 * **İndirim / Zam Oranı (`discount_rate`):** Ürünlerin eski fiyatı ile yeni fiyatı arasındaki değişim oranı formüle edilmiştir:
   $$\text{Discount Rate} = \frac{\text{old\_price} - \text{price}}{\text{old\_price}}$$
-  *(Analizde bu oranın negatif çıkması, ürünlerin zaman içinde premium algıyla zamlandığını göstermiştir.)*
+  *(Negatif değerler, ürünün güncel fiyatının eski fiyatından yüksek olduğunu (fiyat artışı) göstermektedir.)*
 * **Logaritmik Dönüşümler:** Talep ve Fiyat esneklik analizi için doğrusal OLS regresyonuna uygun `log_price` ve `log_sales` değişkenleri üretilmiştir.
 
 ### Aşama_4: Yapay Zekâ Modelleme ve Kümeleme
@@ -56,7 +56,6 @@ Segmentasyonun ardından, En Küçük Kareler Regresyonu (OLS) kullanılarak **K
 
 ### Kırmızı- Premium Segment Regresyon Çıktıları (N=52)
 * **R-squared (%14.6):** İndirim, fiyat ve reyting öznitelikleri satış değişiminin %14.6'sını açıklamaktadır.
-* **Prob (F-statistic) (0.0541):** Model %94.6 güvenilirlikle anlamlıdır.
 
 | Değişken | Katsayı (Coef) | P-Value | Yorum |
 | :--- | :--- | :--- | :--- |
@@ -66,7 +65,7 @@ Segmentasyonun ardından, En Küçük Kareler Regresyonu (OLS) kullanılarak **K
 * **Kategori Kırılımı (Zam Durumu):** Parfüm kategorisinde %297, Cilt Bakımında %82.6 oranında fiyat artışı (zam) yapılmasına rağmen, Parfüm aylık ortalama 356.5 adet ile segmentin en çok satan kategorisi olmuştur.
 
 ### Yeşil- Ekonomik Segment Regresyon Çıktıları (N=108)
-* **log_price Katsayısı (-0.0893):** Lüks segmente göre **10 kat daha fazla fiyat hassasiyeti** mevcuttur.
+Ekonomik segmentte fiyat katsayısının mutlak değeri premium segmente göre daha yüksektir. Bu durum ekonomik segmentte fiyat değişimlerine daha yüksek duyarlılık olabileceğine işaret etmektedir.
 * **discount_rate Katsayısı (+0.2908):** Tüketicinin indirim duyarlılığı premium segmentin **3.5 katıdır**.
 
 ---
@@ -76,5 +75,5 @@ Segmentasyonun ardından, En Küçük Kareler Regresyonu (OLS) kullanılarak **K
 Analiz sonuçlarına dayanarak şirket yönetiminin alması gereken stratejik aksiyonlar şunlardır:
 
 1. **Agresif Fiyatlandırma (Kâr Maksimizasyonu):** **Parfüm ve Cilt Bakımı (Premium)** kategorisinde fiyat artışlarından kaçınılmamalıdır. Müşteri lüks algısı ve marka sadakati nedeniyle fiyat artışlarına reaksiyon göstermemektedir.
-2. **Psikolojik Fiyatlandırma İllüzyonu:** Premium grupta güncel fiyatlar sabit tutulsa dahi, sistemdeki `old_price` (eski fiyat) parametresi yukarı çekilerek yapay bir indirim algısı oluşturulmalıdır. Model, lüks tüketicinin indirim etiketine pozitif tepki verdiğini doğrulamaktadır.
+2. **Psikolojik Fiyatlandırma İllüzyonu:** İndirim etiketlerinin premium tüketiciler üzerinde olumlu etkiler oluşturduğu gözlemlenmiştir. Kampanya stratejileri geliştirilirken bu bulgu dikkate alınabilir.
 3. **Stok Eritme ve Sürüm Kampanyaları:** **Yeşil Segment (Ekonomik)** ürünlerinde asla fiyat artışı yapılmamalıdır. Tüketicilerin indirim hassasiyeti bu grupta çok yüksek olduğundan, stokları eritmek veya siteye trafik çekmek için **Cilt Bakımı ve Makyaj (Ekonomik)** kategorilerinde net %20 indirim kampanyaları uygulanmalıdır.
